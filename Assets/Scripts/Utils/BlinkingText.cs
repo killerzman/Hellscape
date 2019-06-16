@@ -5,22 +5,29 @@ using System.Collections;
 public class BlinkingText : MonoBehaviour
 {
     public TextMeshProUGUI myText;
-    public bool isFlashing;
-    public float flashTime = 0.5f;
+    public float blinkTime = 0.5f;
+    public bool isBlinking = true;
 
-    void Start()
+    private bool startedOnce = false;
+
+    void Update()
     {
-        StartCoroutine(BlinkText());
+        if (!startedOnce)
+        {
+            startedOnce = true;
+            StartCoroutine(BlinkText());
+        }
     }
 
     IEnumerator BlinkText()
     {
-        while (isFlashing)
+        while (isBlinking)
         {
             myText.alpha = 0.0f;
-            yield return new WaitForSeconds(flashTime);
+            yield return new WaitForSeconds(blinkTime);
             myText.alpha = 1.0f;
-            yield return new WaitForSeconds(flashTime);
+            yield return new WaitForSeconds(blinkTime);
         }
+        startedOnce = false;
     }
 }
