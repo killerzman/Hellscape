@@ -11,9 +11,9 @@ public class ScrollingGround : MonoBehaviour
     public bool randomScrolling = true;
     public Sprite[] myScrollingAssets;
 
-    private Rect screenRect;
-    private RectTransform Ground1;
-    private RectTransform Ground2;
+    //private Rect screenRect;
+    private RectTransform RectGround1;
+    private RectTransform RectGround2;
     private int nextAsset = 1;
 
     // Start is called before the first frame update
@@ -21,18 +21,18 @@ public class ScrollingGround : MonoBehaviour
     {
         scrollingGround1.sprite = myScrollingAssets[0];
         scrollingGround2.sprite = myScrollingAssets[1];
-        Ground1 = scrollingGround1.GetComponent<RectTransform>();
-        Ground2 = scrollingGround2.GetComponent<RectTransform>();
+        RectGround1 = scrollingGround1.GetComponent<RectTransform>();
+        RectGround2 = scrollingGround2.GetComponent<RectTransform>();
         StartCoroutine(ScrollGround());
     }
 
     // Update is called once per frame
     IEnumerator ScrollGround()
     {
-        for(float xPos1 = Ground1.position.x; xPos1 >= -Screen.width/2; xPos1 -= rateOfScroll)
+        for(float xPos1 = RectGround1.position.x; xPos1 >= -Screen.width/2; xPos1 -= rateOfScroll)
         {
-            Ground1.position = new Vector2(xPos1, Ground1.position.y);
-            Ground2.position = new Vector2(xPos1 + Screen.width, Ground2.position.y);
+            RectGround1.position = new Vector2(xPos1, RectGround1.position.y);
+            RectGround2.position = new Vector2(xPos1 + Screen.width, RectGround2.position.y);
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
@@ -52,12 +52,12 @@ public class ScrollingGround : MonoBehaviour
             }
             scrollingGround1.sprite = myScrollingAssets[nextAsset];
         }
-        Ground1.position = new Vector2(Screen.width, Ground1.position.y);
+        RectGround1.position = new Vector2(Screen.width, RectGround1.position.y);
 
-        for(float xPos2 = Ground2.position.x; xPos2 >= -Screen.width/2; xPos2 -= rateOfScroll)
+        for(float xPos2 = RectGround2.position.x; xPos2 >= -Screen.width/2; xPos2 -= rateOfScroll)
         {
-            Ground2.position = new Vector2(xPos2, Ground2.position.y);
-            Ground1.position = new Vector2(xPos2 + Screen.width, Ground1.position.y);
+            RectGround2.position = new Vector2(xPos2, RectGround2.position.y);
+            RectGround1.position = new Vector2(xPos2 + Screen.width, RectGround1.position.y);
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
@@ -78,7 +78,7 @@ public class ScrollingGround : MonoBehaviour
             scrollingGround2.sprite = myScrollingAssets[nextAsset];
         }
 
-        Ground2.position = new Vector2(Screen.width, Ground2.position.y);
+        RectGround2.position = new Vector2(Screen.width, RectGround2.position.y);
         StartCoroutine(ScrollGround());
     }
 }
