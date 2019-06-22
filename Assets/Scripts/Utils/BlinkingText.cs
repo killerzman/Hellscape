@@ -10,13 +10,26 @@ public class BlinkingText : MonoBehaviour
 
     private bool startedOnce = false;
 
-    void Update()
+    public void Update()
     {
+        startBlinking(isBlinking);
+    }
+
+    public void startBlinking(bool blinkState)
+    {
+        isBlinking = blinkState;
         if (!startedOnce)
         {
             startedOnce = true;
             StartCoroutine(BlinkText());
         }
+    }
+
+    public void stopBlinking()
+    {
+        isBlinking = false;
+        startedOnce = false;
+        startBlinking(isBlinking);
     }
 
     IEnumerator BlinkText()
