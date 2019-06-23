@@ -10,7 +10,11 @@ public class Score : MonoBehaviour
     public int startScore = 0;
     public int rateOfScore = 10;
     public float secondsBetweenAdds = 0.2f;
-    public int multiplier = 1;
+    public int originalMultiplier = 1;
+    public int newMultiplier = 2;
+    public float secondsForNewMultiplier = 10f;
+    public float tempSecondsForNewMultiplier;
+    public bool useNewMultiplier = false;
     public int howManyLeadingZeros = 6;
 
     private bool startedOnce = false;
@@ -20,6 +24,7 @@ public class Score : MonoBehaviour
         if (!startedOnce)
         {
             startedOnce = true;
+            tempSecondsForNewMultiplier = secondsForNewMultiplier;
             StartCoroutine(AddScore());
         }
     }
@@ -29,7 +34,23 @@ public class Score : MonoBehaviour
         while (addToScore)
         {
             myScore.text = "";
-            startScore += rateOfScore * multiplier;
+            if (useNewMultiplier)
+            {
+                secondsForNewMultiplier -= secondsBetweenAdds;
+                if (secondsForNewMultiplier >= 0)
+                {
+                    startScore += rateOfScore * newMultiplier;
+                }
+                else
+                {
+                    useNewMultiplier = false;
+                    secondsForNewMultiplier = tempSecondsForNewMultiplier;
+                }
+            }
+            else
+            {
+                startScore += rateOfScore * originalMultiplier;
+            }
             for(int i = startScore.ToString().Length; i < howManyLeadingZeros; i++)
             {
                 myScore.text += '0';

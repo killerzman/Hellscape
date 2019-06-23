@@ -7,7 +7,7 @@ public class RandomLineFromFile : MonoBehaviour
     public string frontText;
     public string endText;
     public TextAsset file;
-    void Start()
+    public void Start()
     {
         myText.text = "";
         string[] lines = file.ToString().Split('\n');

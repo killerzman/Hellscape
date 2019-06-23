@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pickup
+  - Pickup-2x
+  - Pickup-Pistol
+  - Pickup-Shotgun
+  - Pickup-Info
+  - Score
+  - Pickup-Wrapper
   layers:
   - Default
   - TransparentFX
