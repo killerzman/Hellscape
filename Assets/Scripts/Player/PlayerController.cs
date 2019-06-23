@@ -63,9 +63,21 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Pickup-2x"))
         {
-            other.gameObject.SetActive(false);
             GameObject pickup = GameObject.FindGameObjectWithTag("Pickup-Wrapper");
             pickup.GetComponent<PickupSystem>().pickup2X();
+            other.gameObject.SetActive(false);
+        }
+        if (other.gameObject.CompareTag("Pickup-Pistol"))
+        {
+            GameObject pickup = GameObject.FindGameObjectWithTag("Pickup-Wrapper");
+            pickup.GetComponent<PickupSystem>().pickupPistol();
+            other.gameObject.SetActive(false);
+        }
+        if (other.gameObject.CompareTag("Pickup-Shotgun"))
+        {
+            GameObject pickup = GameObject.FindGameObjectWithTag("Pickup-Wrapper");
+            pickup.GetComponent<PickupSystem>().pickupShotgun();
+            other.gameObject.SetActive(false);
         }
     }
 }

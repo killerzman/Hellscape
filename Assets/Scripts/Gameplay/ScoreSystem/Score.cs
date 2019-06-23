@@ -13,7 +13,6 @@ public class Score : MonoBehaviour
     public int originalMultiplier = 1;
     public int newMultiplier = 2;
     public float secondsForNewMultiplier = 10f;
-    public float tempSecondsForNewMultiplier;
     public bool useNewMultiplier = false;
     public int howManyLeadingZeros = 6;
 
@@ -24,7 +23,6 @@ public class Score : MonoBehaviour
         if (!startedOnce)
         {
             startedOnce = true;
-            tempSecondsForNewMultiplier = secondsForNewMultiplier;
             StartCoroutine(AddScore());
         }
     }
@@ -44,7 +42,6 @@ public class Score : MonoBehaviour
                 else
                 {
                     useNewMultiplier = false;
-                    secondsForNewMultiplier = tempSecondsForNewMultiplier;
                 }
             }
             else
