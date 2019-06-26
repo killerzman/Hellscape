@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Pistol : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float time = 10f;
+    public bool enable = false;
+    public float iterationInSeconds = 0.01f;
+    public GameObject bullet;
+
+    private bool startedOnce = false;
+
+    private void Update()
     {
-        
+        if (!startedOnce)
+        {
+            startedOnce = true;
+            StartCoroutine(PistolHandler());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator PistolHandler()
     {
-        
+        while (enable)
+        {
+            if (Input.GetButtonDown("Shoot"))
+            {
+                GameObject bulletClone;
+                bulletClone = Instantiate(bullet, transform.position, transform.rotation);
+                bulletClone.SetActive(true);
+                bulletClone.transform.parent = bullet.transform.parent;
+            }
+
+            time -= iterationInSeconds;
+            if(time < 0)
+            {
+                enable = false;
+            }
+            yield return new WaitForSeconds(iterationInSeconds);
+        }
+        startedOnce = false;
     }
 }

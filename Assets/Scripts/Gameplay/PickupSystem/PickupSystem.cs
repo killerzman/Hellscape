@@ -34,6 +34,8 @@ public class PickupSystem : MonoBehaviour
     {
         pistol = GameObject.FindGameObjectWithTag("Pistol");
         pPistol = GameObject.FindGameObjectWithTag("Pickup-Pistol");
+        pistol.GetComponent<Pistol>().time = pPistol.GetComponent<PickupPistol>().time;
+        pistol.GetComponent<Pistol>().enable = true;
         isPistolActive = true;
     }
 
@@ -66,9 +68,9 @@ public class PickupSystem : MonoBehaviour
 
         if (isPistolActive)
         {
-            if (true)
+            if (pistol.GetComponent<Pistol>().time >= 0.0f)
             {
-                textToModify.text += "Pistol: " + "<br>";
+                textToModify.text += "Pistol: " + Mathf.RoundToInt(pistol.GetComponent<Pistol>().time) + "<br>";
             }
             else
             {
