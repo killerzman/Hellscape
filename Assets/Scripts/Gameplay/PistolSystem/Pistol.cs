@@ -5,11 +5,17 @@ using UnityEngine;
 public class Pistol : MonoBehaviour
 {
     public float time = 10f;
+    public float bulletSpeed = 5.0f;
     public bool enable = false;
     public float iterationInSeconds = 0.01f;
     public GameObject bullet;
 
     private bool startedOnce = false;
+
+    private void Awake()
+    {
+        gameObject.GetComponent<ImageOpacityChanger>().changeOpacity(0);
+    }
 
     private void Update()
     {
@@ -24,10 +30,12 @@ public class Pistol : MonoBehaviour
     {
         while (enable)
         {
+            gameObject.GetComponent<ImageOpacityChanger>().changeOpacity(255);
             if (Input.GetButtonDown("Shoot"))
             {
                 GameObject bulletClone;
                 bulletClone = Instantiate(bullet, transform.position, transform.rotation);
+                bulletClone.GetComponent<PistolBullet>().bulletSpeed = bulletSpeed;
                 bulletClone.SetActive(true);
                 bulletClone.transform.parent = bullet.transform.parent;
             }
@@ -40,5 +48,9 @@ public class Pistol : MonoBehaviour
             yield return new WaitForSeconds(iterationInSeconds);
         }
         startedOnce = false;
+        if(time < 0)
+        {
+            gameObject.GetComponent<ImageOpacityChanger>().changeOpacity(0);
+        }
     }
 }

@@ -35,6 +35,7 @@ public class PickupSystem : MonoBehaviour
         pistol = GameObject.FindGameObjectWithTag("Pistol");
         pPistol = GameObject.FindGameObjectWithTag("Pickup-Pistol");
         pistol.GetComponent<Pistol>().time = pPistol.GetComponent<PickupPistol>().time;
+        pistol.GetComponent<Pistol>().bulletSpeed = pPistol.GetComponent<PickupPistol>().bulletSpeed;
         pistol.GetComponent<Pistol>().enable = true;
         isPistolActive = true;
     }

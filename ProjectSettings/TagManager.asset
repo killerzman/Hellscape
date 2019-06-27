@@ -12,6 +12,7 @@ TagManager:
   - Pickup-Wrapper
   - Pistol
   - Shotgun
+  - Obstacle-Monster
   layers:
   - Default
   - TransparentFX
