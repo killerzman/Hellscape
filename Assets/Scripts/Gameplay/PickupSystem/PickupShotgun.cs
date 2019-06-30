@@ -5,4 +5,6 @@ using UnityEngine;
 public class PickupShotgun : MonoBehaviour
 {
     public float time = 10.0f;
+    public float bulletSpeed = 5.0f;
+    public float bulletSpread = 30.0f;
 }

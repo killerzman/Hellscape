@@ -44,6 +44,10 @@ public class PickupSystem : MonoBehaviour
     {
         shotgun = GameObject.FindGameObjectWithTag("Shotgun");
         pShotgun = GameObject.FindGameObjectWithTag("Pickup-Shotgun");
+        shotgun.GetComponent<Shotgun>().time = pShotgun.GetComponent<PickupShotgun>().time;
+        shotgun.GetComponent<Shotgun>().bulletSpeed = pShotgun.GetComponent<PickupShotgun>().bulletSpeed;
+        shotgun.GetComponent<Shotgun>().bulletSpread = pShotgun.GetComponent<PickupShotgun>().bulletSpread;
+        shotgun.GetComponent<Shotgun>().enable = true;
         isShotgunActive = true;
     }
 
@@ -81,9 +85,9 @@ public class PickupSystem : MonoBehaviour
 
         if (isShotgunActive)
         {
-            if (true)
+            if (shotgun.GetComponent<Shotgun>().time >= 0.0f)
             {
-                textToModify.text += "Shotgun: " + "<br>";
+                textToModify.text += "Shotgun: " + Mathf.RoundToInt(shotgun.GetComponent<Shotgun>().time) + "<br>";
             }
             else
             {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PistolBullet : MonoBehaviour
+public class ShotgunBullet : MonoBehaviour
 {
-    public float bulletSpeed = 15.0f;
+    public float bulletSpeed = 5.0f;
 
     // Update is called once per frame
     void Update()

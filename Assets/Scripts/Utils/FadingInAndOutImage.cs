@@ -12,7 +12,7 @@ public class FadingInAndOutImage : MonoBehaviour
 
     private bool startedOnce = false;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!startedOnce)
         {
@@ -28,17 +28,17 @@ public class FadingInAndOutImage : MonoBehaviour
             Color c = myImage.color;
             float maxAlpha = Mathf.Max(startAlpha, endAlpha);
             float minAlpha = Mathf.Min(startAlpha, endAlpha);
-            for(float f = maxAlpha; f >= minAlpha; f -= Time.deltaTime / fadeTime)
+            for(float f = maxAlpha; f >= minAlpha; f -= Time.unscaledDeltaTime / fadeTime)
             {
                 c.a = f;
                 myImage.color = c;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
             }
-            for(float f = minAlpha; f <= maxAlpha; f += Time.deltaTime / fadeTime)
+            for(float f = minAlpha; f <= maxAlpha; f += Time.unscaledDeltaTime / fadeTime)
             {
                 c.a = f;
                 myImage.color = c;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
             }
         }
         startedOnce = false;

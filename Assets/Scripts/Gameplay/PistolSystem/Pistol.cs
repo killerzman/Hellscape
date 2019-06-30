@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pistol : MonoBehaviour
 {
     public float time = 10f;
-    public float bulletSpeed = 5.0f;
+    public float bulletSpeed = 15.0f;
     public bool enable = false;
     public float iterationInSeconds = 0.01f;
     public GameObject bullet;
@@ -37,7 +37,7 @@ public class Pistol : MonoBehaviour
                 bulletClone = Instantiate(bullet, transform.position, transform.rotation);
                 bulletClone.GetComponent<PistolBullet>().bulletSpeed = bulletSpeed;
                 bulletClone.SetActive(true);
-                bulletClone.transform.parent = bullet.transform.parent;
+                bulletClone.transform.SetParent(bullet.transform.parent);
             }
 
             time -= iterationInSeconds;

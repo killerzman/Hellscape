@@ -14,10 +14,10 @@ public class ScrollingObstacles : MonoBehaviour
     void Start()
     {
         RectObstacle = scrollingObstacle.GetComponent<RectTransform>();
-        StartCoroutine(ScrollMonster());
+        StartCoroutine(ScrollObstacle());
     }
 
-    IEnumerator ScrollMonster()
+    IEnumerator ScrollObstacle()
     {
         while (true)
         {
