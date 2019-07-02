@@ -8,47 +8,54 @@ public class PickupSystem : MonoBehaviour
 
     public TextMeshProUGUI textToModify;
 
-    GameObject score;
-    GameObject p2X;
+    Score score;
+    Pickup2X p2X;
     private bool is2XActive = false;
 
-    GameObject pistol;
-    GameObject pPistol;
+    Pistol pistol;
+    PickupPistol pPistol;
     private bool isPistolActive = false;
 
-    GameObject shotgun;
-    GameObject pShotgun;
+    Shotgun shotgun;
+    PickupShotgun pShotgun;
     private bool isShotgunActive = false;
+
+    PlayerController player;
 
     public void pickup2X()
     {
         //GameObject score = GameObject.FindGameObjectWithTag("Score");
-        score = GameObject.FindGameObjectWithTag("Score");
-        p2X = GameObject.FindGameObjectWithTag("Pickup-2x");
-        score.GetComponent<Score>().newMultiplier = p2X.GetComponent<Pickup2X>().multiplier;
-        score.GetComponent<Score>().secondsForNewMultiplier = p2X.GetComponent<Pickup2X>().time;
-        score.GetComponent<Score>().useNewMultiplier = true;
+        score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+        p2X = GameObject.FindGameObjectWithTag("Pickup-2x").GetComponent<Pickup2X>();
+        score.newMultiplier = p2X.multiplier;
+        score.secondsForNewMultiplier = p2X.time;
+        score.useNewMultiplier = true;
         is2XActive = true;
     }
     public void pickupPistol()
     {
-        pistol = GameObject.FindGameObjectWithTag("Pistol");
-        pPistol = GameObject.FindGameObjectWithTag("Pickup-Pistol");
-        pistol.GetComponent<Pistol>().time = pPistol.GetComponent<PickupPistol>().time;
-        pistol.GetComponent<Pistol>().bulletSpeed = pPistol.GetComponent<PickupPistol>().bulletSpeed;
-        pistol.GetComponent<Pistol>().enable = true;
+        pistol = GameObject.FindGameObjectWithTag("Pistol").GetComponent<Pistol>();
+        pPistol = GameObject.FindGameObjectWithTag("Pickup-Pistol").GetComponent<PickupPistol>();
+        pistol.time = pPistol.time;
+        pistol.bulletSpeed = pPistol.bulletSpeed;
+        pistol.enable = true;
         isPistolActive = true;
     }
 
     public void pickupShotgun()
     {
-        shotgun = GameObject.FindGameObjectWithTag("Shotgun");
-        pShotgun = GameObject.FindGameObjectWithTag("Pickup-Shotgun");
-        shotgun.GetComponent<Shotgun>().time = pShotgun.GetComponent<PickupShotgun>().time;
-        shotgun.GetComponent<Shotgun>().bulletSpeed = pShotgun.GetComponent<PickupShotgun>().bulletSpeed;
-        shotgun.GetComponent<Shotgun>().bulletSpread = pShotgun.GetComponent<PickupShotgun>().bulletSpread;
-        shotgun.GetComponent<Shotgun>().enable = true;
+        shotgun = GameObject.FindGameObjectWithTag("Shotgun").GetComponent<Shotgun>();
+        pShotgun = GameObject.FindGameObjectWithTag("Pickup-Shotgun").GetComponent<PickupShotgun>();
+        shotgun.time = pShotgun.time;
+        shotgun.bulletSpeed = pShotgun.bulletSpeed;
+        shotgun.bulletSpread = pShotgun.bulletSpread;
+        shotgun.enable = true;
         isShotgunActive = true;
+    }
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -60,10 +67,10 @@ public class PickupSystem : MonoBehaviour
         if (is2XActive)
         {
             //GameObject score = GameObject.FindGameObjectWithTag("Score");
-            if (score.GetComponent<Score>().secondsForNewMultiplier >= 0.0f)
+            if (score.secondsForNewMultiplier >= 0.0f)
             {
                 //Debug.Log("Updating 2x text");
-                textToModify.text += "2X: " + Mathf.RoundToInt(score.GetComponent<Score>().secondsForNewMultiplier) + "<br>";
+                textToModify.text += "2X: " + Mathf.RoundToInt(score.secondsForNewMultiplier) + "<br>";
             }
             else
             {
@@ -73,25 +80,27 @@ public class PickupSystem : MonoBehaviour
 
         if (isPistolActive)
         {
-            if (pistol.GetComponent<Pistol>().time >= 0.0f)
+            if (pistol.time >= 0.0f)
             {
-                textToModify.text += "Pistol: " + Mathf.RoundToInt(pistol.GetComponent<Pistol>().time) + "<br>";
+                textToModify.text += "Pistol: " + Mathf.RoundToInt(pistol.time) + "<br>";
             }
             else
             {
                 isPistolActive = false;
+                player.isGunnedUp = false;
             }
         }
 
         if (isShotgunActive)
         {
-            if (shotgun.GetComponent<Shotgun>().time >= 0.0f)
+            if (shotgun.time >= 0.0f)
             {
-                textToModify.text += "Shotgun: " + Mathf.RoundToInt(shotgun.GetComponent<Shotgun>().time) + "<br>";
+                textToModify.text += "Shotgun: " + Mathf.RoundToInt(shotgun.time) + "<br>";
             }
             else
             {
                 isShotgunActive = false;
+                player.isGunnedUp = false;
             }
         }
     }

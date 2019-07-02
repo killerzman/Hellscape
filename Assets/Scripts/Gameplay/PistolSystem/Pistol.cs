@@ -31,7 +31,7 @@ public class Pistol : MonoBehaviour
         while (enable)
         {
             gameObject.GetComponent<ImageOpacityChanger>().changeOpacity(255);
-            if (Input.GetButtonDown("Shoot"))
+            if (GameToggle.isInputEnabled && Input.GetButtonDown("Shoot"))
             {
                 GameObject bulletClone;
                 bulletClone = Instantiate(bullet, transform.position, transform.rotation);

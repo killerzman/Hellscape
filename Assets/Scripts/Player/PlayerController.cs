@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public float jumpMultiplier;
     public bool canDoubleJump = false;
+    public bool isGunnedUp;
 
     private Rigidbody2D rb;
     private bool isJumping;
@@ -20,12 +21,13 @@ public class PlayerController : MonoBehaviour
         isJumping = false;
         currentJumps = 0;
         limitJumps = 2;
+        isGunnedUp = false;
     }
 
     void Update()
     {
         //Debug.Log(isJumping);
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        if (GameToggle.isInputEnabled && Input.GetButtonDown("Jump") && !isJumping)
         {
             isJumping = true;
             rb.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse);
@@ -67,17 +69,25 @@ public class PlayerController : MonoBehaviour
             pickup.GetComponent<PickupSystem>().pickup2X();
             other.gameObject.SetActive(false);
         }
-        if (other.gameObject.CompareTag("Pickup-Pistol"))
+        if (other.gameObject.CompareTag("Pickup-Pistol") && !isGunnedUp)
         {
+            isGunnedUp = true;
             GameObject pickup = GameObject.FindGameObjectWithTag("Pickup-Wrapper");
             pickup.GetComponent<PickupSystem>().pickupPistol();
             other.gameObject.SetActive(false);
         }
-        if (other.gameObject.CompareTag("Pickup-Shotgun"))
+        if (other.gameObject.CompareTag("Pickup-Shotgun") && !isGunnedUp)
         {
+            isGunnedUp = true;
             GameObject pickup = GameObject.FindGameObjectWithTag("Pickup-Wrapper");
             pickup.GetComponent<PickupSystem>().pickupShotgun();
             other.gameObject.SetActive(false);
+        }
+        if (other.gameObject.CompareTag("Obstacle-Monster"))
+        {
+            this.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
+            OnDeath.show();
         }
     }
 }

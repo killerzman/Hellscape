@@ -13,6 +13,7 @@ TagManager:
   - Pistol
   - Shotgun
   - Obstacle-Monster
+  - DeathPanel
   layers:
   - Default
   - TransparentFX

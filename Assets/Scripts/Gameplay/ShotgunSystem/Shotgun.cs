@@ -32,7 +32,7 @@ public class Shotgun : MonoBehaviour
         while (enable)
         {
             gameObject.GetComponent<ImageOpacityChanger>().changeOpacity(255);
-            if (Input.GetButtonDown("Shoot"))
+            if (GameToggle.isInputEnabled && Input.GetButtonDown("Shoot"))
             {
                 GameObject[] bulletClone = new GameObject[2];
                 for (int i = 0; i < bulletClone.Length; i++)
